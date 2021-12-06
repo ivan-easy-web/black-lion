@@ -14,7 +14,7 @@ export default function HomeScreen(props) {
 
     return <Stack.Navigator screenOptions={{
         headerStyle: {
-            backgroundColor: 'rgb(25,25,27)'
+            backgroundColor: 'rgba(25,25,27, 0)'
         }
     }}>
         <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
@@ -23,7 +23,7 @@ export default function HomeScreen(props) {
             headerTintColor: mainStyle.accentColor,
             headerBackTitle: '',
             headerTransparent: true,
-            navigation: props.navigation
+            navigation: props.navigation,
         }}/>
         <Stack.Screen name="Staff" component={StaffScreen} options={{ 
             title: 'Выберите мастера',

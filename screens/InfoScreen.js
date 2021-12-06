@@ -69,6 +69,8 @@ export default class InfoScreen extends Component {
                 <Text style={styles.text}>Выйти из аккаунта</Text>
             </TouchableOpacity>
         </View>
+        
+        <View style={{height: 90}}/>
         </ImageBackground>
     }
 }
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     list: {
-        marginTop: 20,
+        marginTop: 40,
         marginLeft: 10,
         marginRight: 10
     },
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
     
     buttonWrapper: {
         position: 'absolute',
-        bottom: 10,
+        bottom: 100,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%'

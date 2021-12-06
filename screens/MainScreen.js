@@ -6,6 +6,8 @@ import mainStyle from '../styles/main';
 const logoRatio = 772/700;
 const m2Ratio = 216/200;
 
+import { BlurView } from 'expo-blur';
+
 const { width }  = Dimensions.get('window');
 
 export default function MainScreen({navigation}) {
@@ -50,6 +52,7 @@ export default function MainScreen({navigation}) {
             <Text style={[styles.h4, {marginBottom: 140}]}>
                 Пн-Чт с 13:00-17:00
             </Text>
+
         </ScrollView>
 
         <View style={styles.callButtonWrapper}>
@@ -60,12 +63,23 @@ export default function MainScreen({navigation}) {
                 />
             </TouchableOpacity>
         </View>
+        <View style={styles.instButtonWrapper}>
+            <TouchableOpacity onPress={() => {Linking.openURL(`https://instagram.com/blacklion.barbershop?utm_medium=copy_link`)}}>
+                <Image
+                    style={styles.callImg}
+                    source={require('../assets/inst.png')}
+                />
+            </TouchableOpacity>
+        </View>
 
         <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Service')}}>
                 <Text style={styles.text}>Записаться</Text>
             </TouchableOpacity>
         </View>
+
+        
+        <View style={{height: 90}}/>
     </SafeAreaView>
     </ImageBackground>
 }
@@ -134,7 +148,7 @@ const styles = StyleSheet.create({
 
     buttonWrapper: {
         position: 'absolute',
-        bottom: 10,
+        bottom: 100,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%'

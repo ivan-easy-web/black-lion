@@ -34,6 +34,7 @@ export default class StaffScreen extends React.Component {
         return <ImageBackground source={require('../assets/background.png')} style={mainStyle.styles.background}>
         <SafeAreaView style={styles.container}>
             {(this.state.staff == undefined)? loadingScreen(): staffScreen(this.props.route.params.service, this.state.staff, this.props.navigation)}
+            <View style={{height: 90}}/>
         </SafeAreaView>
         </ImageBackground>
     }

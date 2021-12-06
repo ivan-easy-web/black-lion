@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { AppState, StyleSheet, View, Image, Text } from "react-native";
+import { AppState, StyleSheet, View, Image, Text, ImageBackground } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "react-native-splash-screen";
 
@@ -90,6 +90,7 @@ export default class App extends Component {
     if (this.state.state == "logedIn") {
       return (
         <View style={styles.container}>
+          <ImageBackground source={require('./assets/background.png')} style={mainStyle.styles.background}>
           <StatusBar style="light" />
           <NavigationContainer>
             <Tab.Navigator
@@ -98,10 +99,11 @@ export default class App extends Component {
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: mainStyle.accentColor,
                 tabBarStyle: {
-                  backgroundColor: "rgb(25,25,27)",
+                  backgroundColor: "rgba(25,25,27,0)",
                   borderTopColor: "grey",
                   height: 90,
-                },
+                  position: 'absolute'
+                }
               }}
               initialRouteName="Home"
             >
@@ -154,6 +156,7 @@ export default class App extends Component {
               />
             </Tab.Navigator>
           </NavigationContainer>
+          </ImageBackground>
         </View>
       );
     }

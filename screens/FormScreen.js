@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ImageBackground, StyleSheet, TextInput, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView, ImageBackground, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import Api from "../components/Api";
 import mainStyle from "../styles/main";
 
@@ -8,11 +8,11 @@ export default function FormScreen(props) {
         let api = new Api;
         api.record(props.route.params.service.id, props.route.params.staff.id, props.route.params.time, userData.phone, userData.name, userData.email, 
             (result) => {
-                alert('Вы записаны!');
+                Alert.alert('Black Lion', 'Вы записаны!');
                 props.navigation.popToTop();
             },
             (error) => {
-                alert(error);
+                Alert.alert('Black Lion', error);
             }
         );
     };

@@ -28,7 +28,8 @@
     "react-native-splash-screen": "^3.2.0",
     "react-native-unimodules": "0.14.10",
     "react-native-web": "~0.13.12",
-    "superagent": "^6.1.0"
+    "superagent": "^6.1.0",
+    "expo-blur": "~9.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

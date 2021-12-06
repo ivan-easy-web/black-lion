@@ -67,6 +67,7 @@ class MainScreen extends React.Component {
         return <View>
             {datesList(this.props.dates, this.state.date, this.setDate)}
             <TimesScreen date={this.state.date} apiProps={this.props.apiProps} navigation={this.props.navigation}/>
+            
         </View>
     }
 }
@@ -141,7 +142,6 @@ class TimesScreen extends React.Component {
         apiProps.date = this.state.date;
         return <View>
             {(this.state.times == undefined)? loadingScreen(): timesList(this.state.times, this.props.navigation, apiProps)}
-
         </View>
     }
 }
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     list: {
         marginLeft: 10,
         marginRight: 10,
-        height: windowHeight - 200
+        height: windowHeight - 205
     },
     itemWrapper: {
         marginTop: 10,

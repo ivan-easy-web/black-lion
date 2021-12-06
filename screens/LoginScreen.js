@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Dimensions, ImageBackground, Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Dimensions, ImageBackground, Image, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Api from '../components/Api';
@@ -39,7 +39,7 @@ export default class LoginScreen extends Component {
                 this.setState(state);
             },
             (error) => {
-                alert(error);
+                Alert.alert('Black Lion', error);
                 let state = this.state;
                 state.codeSent = false;
                 this.setState(state);
@@ -51,12 +51,12 @@ export default class LoginScreen extends Component {
         let api = new Api;
 
         if (this.state.userData.name == '') {
-            alert('Введите имя!');
+            Alert.alert('Black Lion', 'Введите имя!');
             return;
         }
         const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!regexp.test(String(this.state.userData.email).toLowerCase())) {
-            alert('Введите E-mail!');
+            Alert.alert('Black Lion', 'Введите E-mail!');
             return;
         }
 
@@ -68,7 +68,7 @@ export default class LoginScreen extends Component {
                 this.props.logIn(this.state.userData);
             },
             (error) => {
-                alert(error);
+                Alert.alert('Black Lion', error);
             }
         )
     }   

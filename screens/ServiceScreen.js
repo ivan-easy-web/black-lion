@@ -58,6 +58,7 @@ export default class ServiceScreen extends React.Component {
 function loadingScreen() {
     return <View style={styles.loadingScreen}>
         <Text style={styles.loadingText}>Загрузка</Text>
+        <View style={{height: 90}}/>
     </View>
 }
 
@@ -80,6 +81,7 @@ function servicesScreen(services, navigation, pro, setPro) {
         renderItem={({item}) => serviceListItem(item, navigation)}
         keyExtractor={item => item.id.toString()}
         />
+        <View style={{height: 90}}/>
     </View>
 }
 
