@@ -2,7 +2,7 @@ const superagent = require('superagent');
 const apiKey = 'Bearer zfwzhrbe2kf9agg58n3h'; 
 const companyId = 554303;
 const baseUrl = 'https://api.yclients.com/api/v1/';
-const comment = "-test Запись через приложение для разработчика!";
+const comment = "Запись через мобильное приложение";
 
 
 
@@ -83,7 +83,8 @@ export default class Api {
       'fullname': name,
       'email': email,
       'api_id': 554303,
-      'comment': comment,
+      'comment': comment + '\nИмя: ' + name,
+      'notify_by_sms' : 2,
       'appointments': [
         {
           'id':1,

@@ -25,6 +25,7 @@ export default class InfoScreen extends Component {
                 let records = result.data;
                 let now = new Date();
                 records = records.filter(elem => Date.parse(elem.datetime) > now);
+                records = records.filter(elem => !elem.deleted);
                 records = records.sort((r1, r2) => Date.parse(r1.datetime) > Date.parse(r2.datetime));
                 let nextState = this.state;
                 nextState.records = records;
@@ -42,6 +43,7 @@ export default class InfoScreen extends Component {
                     let records = result.data;
                     let now = new Date();
                     records = records.filter(elem => Date.parse(elem.datetime) > now);
+                    records = records.filter(elem => !elem.deleted);
                     records = records.sort((r1, r2) => Date.parse(r1.datetime) > Date.parse(r2.datetime));
                     let nextState = this.state;
                     nextState.records = records;
