@@ -1,4 +1,4 @@
-package com.webboyclique.BlackLionApp.generated;
+package ru.likesapp.vadik.blacklion.generated;
 
 import java.util.Arrays;
 import java.util.List;

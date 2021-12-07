@@ -1,4 +1,4 @@
-package com.webboyclique.BlackLionApp;
+package ru.likesapp.vadik.blacklion;
 import android.content.res.Configuration;
 import android.content.Intent;
 
