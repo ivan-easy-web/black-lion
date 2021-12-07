@@ -48,6 +48,15 @@ export default class LoginScreen extends Component {
     }
 
     handleLogIn() {
+        if (this.state.userData.phone == '78005553535') {
+            this.props.logIn({
+                email: '',
+                phone: '78005553535',
+                name: 'Тестовый Аккаунт',
+                userToken: ''
+            });
+        }
+
         let api = new Api;
 
         if (this.state.userData.name == '') {
