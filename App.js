@@ -1,9 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { AppState, StyleSheet, View, Image, Text, ImageBackground } from "react-native";
+import {
+  AppState,
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  ImageBackground,
+} from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  BottomTabBar,
+  createBottomTabNavigator,
+} from "@react-navigation/bottom-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "react-native-splash-screen";
 
@@ -31,7 +41,6 @@ export default class App extends Component {
 
   componentDidMount() {
     this.readData();
-
     this.appStateSubscription = AppState.addEventListener(
       "change",
       (nextAppState) => {
@@ -61,6 +70,8 @@ export default class App extends Component {
       this.setState(state);
     } catch (e) {
       alert("Failed to fetch the data from storage");
+    } finally {
+      SplashScreen.hide();
     }
   };
 
@@ -90,72 +101,75 @@ export default class App extends Component {
     if (this.state.state == "logedIn") {
       return (
         <View style={styles.container}>
-          <ImageBackground source={require('./assets/background.png')} style={mainStyle.styles.background}>
-          <StatusBar style="light" />
-          <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={{
-                headerShown: false,
-                tabBarShowLabel: false,
-                tabBarActiveTintColor: mainStyle.accentColor,
-                tabBarStyle: {
-                  backgroundColor: "rgba(25,25,27,0)",
-                  borderTopColor: "grey",
-                  height: 90,
-                  position: 'absolute'
-                }
-              }}
-              initialRouteName="Home"
-            >
-              <Tab.Screen
-                name="Info"
-                component={InfoScreen}
-                initialParams={{
-                  userData: this.state.userData,
-                  logOut: this.handleLogOut,
-                }}
-                options={{
-                  tabBarIcon: ({ focused }) => {
-                    return (
-                      <View>
-                        <Image
-                          style={styles.tabBarIconImage}
-                          source={
-                            focused
-                              ? require("./assets/ic_price.png")
-                              : require("./assets/ic_price_off.png")
-                          }
-                        />
-                      </View>
-                    );
+          <ImageBackground
+            source={require("./assets/background.png")}
+            style={mainStyle.styles.background}
+          >
+            <StatusBar style="light" />
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={{
+                  headerShown: false,
+                  tabBarShowLabel: false,
+                  tabBarActiveTintColor: mainStyle.accentColor,
+                  tabBarStyle: {
+                    backgroundColor: "rgba(25,25,27,0)",
+                    borderTopColor: "grey",
+                    height: 90,
+                    position: "absolute",
                   },
                 }}
-              />
-              <Tab.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                  tabBarIcon: ({ focused }) => {
-                    return (
-                      <View>
-                        <Image
-                          style={styles.tabBarIconImage}
-                          source={
-                            focused
-                              ? require("./assets/ic_main.png")
-                              : require("./assets/ic_main_off.png")
-                          }
-                        />
-                      </View>
-                    );
-                  },
-                }}
-                initialParams={{
-                  userData: this.state.userData,
-                }}
-              />
-            </Tab.Navigator>
-          </NavigationContainer>
+                initialRouteName="Home"
+              >
+                <Tab.Screen
+                  name="Info"
+                  component={InfoScreen}
+                  initialParams={{
+                    userData: this.state.userData,
+                    logOut: this.handleLogOut,
+                  }}
+                  options={{
+                    tabBarIcon: ({ focused }) => {
+                      return (
+                        <View>
+                          <Image
+                            style={styles.tabBarIconImage}
+                            source={
+                              focused
+                                ? require("./assets/ic_price.png")
+                                : require("./assets/ic_price_off.png")
+                            }
+                          />
+                        </View>
+                      );
+                    },
+                  }}
+                />
+                <Tab.Screen
+                  name="Home"
+                  component={HomeScreen}
+                  options={{
+                    tabBarIcon: ({ focused }) => {
+                      return (
+                        <View>
+                          <Image
+                            style={styles.tabBarIconImage}
+                            source={
+                              focused
+                                ? require("./assets/ic_main.png")
+                                : require("./assets/ic_main_off.png")
+                            }
+                          />
+                        </View>
+                      );
+                    },
+                  }}
+                  initialParams={{
+                    userData: this.state.userData,
+                  }}
+                />
+              </Tab.Navigator>
+            </NavigationContainer>
           </ImageBackground>
         </View>
       );
