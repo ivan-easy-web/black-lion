@@ -41,6 +41,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.readData();
+
     this.appStateSubscription = AppState.addEventListener(
       "change",
       (nextAppState) => {
@@ -55,8 +56,6 @@ export default class App extends Component {
     );
   }
 
-  componentWillUnmount() {}
-
   readData = async () => {
     try {
       const userData = JSON.parse(await AsyncStorage.getItem("@userData"));
@@ -67,11 +66,10 @@ export default class App extends Component {
       } else {
         state.state = "notLogedIn";
       }
+      SplashScreen.hide();
       this.setState(state);
     } catch (e) {
       alert("Failed to fetch the data from storage");
-    } finally {
-      SplashScreen.hide();
     }
   };
 

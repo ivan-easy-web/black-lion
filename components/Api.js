@@ -150,6 +150,19 @@ export default class Api {
     });
   }
   
-  
+  deleteRecord(userToken, id, success, fail) {
+    superagent
+    .delete(`${baseUrl}user/records/${id}`)
+    .set('Authorization', `${apiKey}, User ${userToken}`)
+    .set('Content-Type', 'application/json')
+    .set('Accept', 'application/vnd.yclients.v2+json')
+    .end((err, res) => {
+      if (res.ok) {
+        success();
+      } else {
+        fail('Не удалось удалить запись');
+      }
+    });
+  }
 }
 
