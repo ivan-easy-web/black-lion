@@ -46,8 +46,6 @@ export default class App extends Component {
     );
   }
 
-  componentWillUnmount() {}
-
   readData = async () => {
     try {
       const userData = JSON.parse(await AsyncStorage.getItem("@userData"));
