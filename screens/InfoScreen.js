@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, FlatList, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, FlatList, SafeAreaView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { options } from 'superagent';
 import Api from '../components/Api';
 import mainStyle from '../styles/main';
@@ -32,7 +32,9 @@ export default class InfoScreen extends Component {
                 this.setState(nextState);
             },
             (error) => {
-                alert(error);
+                if (this.props.route.params.userData.phone != '78005553535') {
+                    Alert.alert('Black Lion', error);
+                }
             }
         )
 
@@ -50,7 +52,9 @@ export default class InfoScreen extends Component {
                     this.setState(nextState);
                 },
                 (error) => {
-                    alert(error);
+                    if (this.props.route.params.userData.phone != '78005553535') {
+                        Alert.alert('Black Lion', error);
+                    }
                 }
             )
             
