@@ -23,8 +23,12 @@ export default function HomeScreen(props) {
             headerTintColor: mainStyle.accentColor,
             headerBackTitle: '',
             headerTransparent: true,
-            navigation: props.navigation,
-        }}/>
+            navigation: props.navigation
+        }}
+        initialParams={{
+            fromLogin: false
+        }}
+        />
         <Stack.Screen name="Staff" component={StaffScreen} options={{ 
             title: 'Выберите мастера',
             headerTintColor: mainStyle.accentColor,

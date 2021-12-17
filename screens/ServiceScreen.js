@@ -48,7 +48,7 @@ export default class ServiceScreen extends React.Component {
     render() {
         return <ImageBackground source={require('../assets/background.png')} style={mainStyle.styles.background}>
         <SafeAreaView style={styles.container}>
-            {(this.state.services == undefined)? loadingScreen(): servicesScreen(this.state.renderedServices, this.props.navigation, this.state.pro, this.setPro)}
+            {(this.state.services == undefined)? loadingScreen(): servicesScreen(this.state.renderedServices, this.props.navigation, this.state.pro, this.setPro, !this.props.route.params.fromLogin)}
         </SafeAreaView>
         </ImageBackground>
     }
@@ -62,7 +62,7 @@ function loadingScreen() {
     </View>
 }
 
-function servicesScreen(services, navigation, pro, setPro) {
+function servicesScreen(services, navigation, pro, setPro, handlePress) {
     return <View>
         <View
         style={styles.hlist}
@@ -76,17 +76,17 @@ function servicesScreen(services, navigation, pro, setPro) {
         </View>
         <FlatList
         showsVerticalScrollIndicator={false}
-        style={styles.list}
+        style={(handlePress)? styles.list: styles.fromLoginList}
         data={services}
-        renderItem={({item}) => serviceListItem(item, navigation)}
+        renderItem={({item}) => serviceListItem(item, navigation, handlePress)}
         keyExtractor={item => item.id.toString()}
         />
-        <View style={{height: 90}}/>
+        <View style={{height: (handlePress)? 90: 0}}/>
     </View>
 }
 
-function serviceListItem(item, navigation) {
-    return <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('Staff', {service: item})}}>
+function serviceListItem(item, navigation, handlePress) {
+    return <TouchableOpacity style={styles.item} onPress={() => { if(handlePress) { navigation.navigate('Staff', {service: item})}}}>
         <View style={styles.row}>
             <View>
                 <Image style={styles.image} source={{uri: item.image}}/>
@@ -119,6 +119,11 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         height: windowHeight - 110
+    },
+    fromLoginList: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: windowHeight 
     },
     item: {
         marginTop: 10,

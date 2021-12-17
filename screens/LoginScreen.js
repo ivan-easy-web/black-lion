@@ -32,7 +32,7 @@ export default class LoginScreen extends Component {
     handleSendCode() {
 
         if (this.state.userData.phone == '78005553535') {
-            this.props.logIn({
+            this.props.route.params.handleLogIn({
                 email: '',
                 phone: '78005553535',
                 name: 'Тестовый Аккаунт',
@@ -77,7 +77,7 @@ export default class LoginScreen extends Component {
                 let userData = this.state.userData;
                 let userToken = result;
                 userData.userToken = userToken;
-                this.props.logIn(this.state.userData);
+                this.props.route.params.handleLogIn(this.state.userData);
             },
             (error) => {
                 Alert.alert('Black Lion', error);
@@ -104,6 +104,9 @@ export default class LoginScreen extends Component {
     }
 
     parsePhone(text) {
+        if(text == '') {
+            return '7';
+        }
         var matches = text.match(/\d+/g);
         let result = '';
         matches.forEach(digit => {
@@ -123,6 +126,9 @@ export default class LoginScreen extends Component {
                     source={require('../assets/logo.png')}
                 />
             </View>
+            <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate('Service', {fromLogin: true})}}>
+                <Text style={styles.buttonText}>Price</Text>
+            </TouchableOpacity>
 
             <Text style={styles.h1}>
                 Вход в систему
@@ -132,6 +138,8 @@ export default class LoginScreen extends Component {
             <TextInput
                 value={this.state.userData.name}
                 style={styles.input}
+                keyboardAppearance={'dark'}
+                keyboardType="default"
                 onChangeText={(text) => {
                     let state = this.state;
                     state.userData.name = text;
@@ -142,17 +150,21 @@ export default class LoginScreen extends Component {
             <TextInput
                 value={this.printPhone(this.state.userData.phone)}
                 style={styles.input}
+                keyboardAppearance={'dark'}
+                keyboardType="phone-pad"
                 onChangeText={(text) => {
                     let state = this.state;
                     state.userData.phone = this.parsePhone(text);
                     this.setState(state);
                 }}
-                keyboardType="numeric"
             />
             <Text style={styles.label}>E-mail</Text>
             <TextInput
                 value={this.state.userData.email}
                 style={styles.input}
+                autoCorrect={false}
+                keyboardAppearance={'dark'}
+                keyboardType='email-address'
                 onChangeText={(text) => {
                     let state = this.state;
                     state.userData.email = text;
@@ -163,6 +175,7 @@ export default class LoginScreen extends Component {
             <TextInput
                 value={this.state.code}
                 style={styles.input}
+                keyboardAppearance={'dark'}
                 onChangeText={(text) => {
                     let state = this.state;
                     state.code = text;
@@ -200,7 +213,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     h1: {
-        marginTop: 50,
+        marginTop: 20,
         marginBottom: 20,
         fontSize: 30,
         textAlign: 'center',
@@ -227,8 +240,6 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'white',
         marginTop: 20,
-        marginLeft: 30,
-        marginRight: 30,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
