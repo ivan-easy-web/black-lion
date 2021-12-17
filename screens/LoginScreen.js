@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Api from '../components/Api';
 import mainStyle from '../styles/main';
 
-const logoRatio = 772/700;
+const logoRatio = 700/1500;
 
 const { width }  = Dimensions.get('window');
 
@@ -123,7 +123,7 @@ export default class LoginScreen extends Component {
             <View style={styles.imageWrapper}>
                 <Image
                     style={styles.logoImg}
-                    source={require('../assets/logo.png')}
+                    source={require('../assets/login.png')}
                 />
             </View>
             <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate('Service', {fromLogin: true})}}>
@@ -204,12 +204,11 @@ const styles = StyleSheet.create({
         width: '80%',
     }, 
     imageWrapper: {
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 20
     },  
     logoImg: {
-        width: width * 0.4,
-        height: width * logoRatio * 0.4,
-        aspectRatio: 1,
+        height: width * 0.8 * logoRatio,
         resizeMode: 'contain'
     },
     h1: {
