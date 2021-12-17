@@ -1,9 +1,14 @@
 import React from "react";
-import { SafeAreaView, ImageBackground, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from "react-native";
+import { ImageBackground, StyleSheet, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import Api from "../components/Api";
 import mainStyle from "../styles/main";
 
-export default function FormScreen(props) {
+import {
+    SafeAreaView,
+    withSafeAreaInsets,
+} from "react-native-safe-area-context";
+
+function FormScreen(props) {
     let record = (userData) => {
         let api = new Api;
         api.record(props.route.params.service.id, props.route.params.staff.id, props.route.params.time, userData.phone, userData.name, userData.email, 
@@ -33,7 +38,7 @@ export default function FormScreen(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: 50,
         alignItems: 'center'
     },
     background: {
@@ -62,3 +67,5 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 });
+
+export default withSafeAreaInsets(FormScreen);

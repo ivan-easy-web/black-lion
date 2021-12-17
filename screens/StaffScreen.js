@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { SafeAreaView, View, Text, ImageBackground, TouchableOpacity, FlatList, StyleSheet, Image, TouchableWithoutFeedbackBase } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, FlatList, StyleSheet, Image, TouchableWithoutFeedbackBase } from 'react-native';
 import Api from '../components/Api';
 import mainStyle from '../styles/main';
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default class StaffScreen extends React.Component {
+import {
+    SafeAreaView,
+    withSafeAreaInsets,
+} from "react-native-safe-area-context";
+
+class StaffScreen extends React.Component {
     constructor(props) {
         super(props);
 
@@ -75,6 +80,7 @@ function staffListItem(service, item, navigation) {
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 40,
         flex: 1,
         alignItems: 'center'
     },
@@ -122,3 +128,6 @@ const styles = StyleSheet.create({
         borderRadius: 50
     }
   });
+
+
+  export default withSafeAreaInsets(StaffScreen);

@@ -1,13 +1,19 @@
 import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
-import { View, Text, ImageBackground, TouchableOpacity, FlatList, StyleSheet, Image, TouchableWithoutFeedbackBase, SafeAreaView } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, FlatList, StyleSheet, Image, TouchableWithoutFeedbackBase } from 'react-native';
 import Api from '../components/Api';
 import mainStyle from '../styles/main';
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default class DatesScreen extends React.Component {
+import {
+    SafeAreaView,
+    withSafeAreaInsets,
+} from "react-native-safe-area-context";
+
+
+class DatesScreen extends React.Component {
     constructor(props) {
         super(props);
 
@@ -183,7 +189,9 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         height: 50,
-        maxHeight: 50
+        maxHeight: 50,
+        marginTop: 40,
+        marginBottom: 10
     },
     hItemWrapper: {
         height: 40,
@@ -217,7 +225,7 @@ const styles = StyleSheet.create({
     list: {
         marginLeft: 10,
         marginRight: 10,
-        height: windowHeight - 205
+        height: windowHeight - 210
     },
     itemWrapper: {
         marginTop: 10,
@@ -254,3 +262,6 @@ const styles = StyleSheet.create({
         borderRadius: 50
     }
   });
+
+
+  export default withSafeAreaInsets(DatesScreen);
