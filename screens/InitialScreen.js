@@ -12,16 +12,23 @@ export default function InitialScreen(handleLogIn) {
         headerStyle: {
             backgroundColor: 'rgba(25,25,27, 0)'
         }
-    }}>
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}}
-        initialParams={{
-            handleLogIn: handleLogIn,
-        }} />
+    }} 
+    
+
+    >
         <Stack.Screen name="Service" component={ServiceScreen} options={{ 
             title: 'Price',
             headerTintColor: mainStyle.accentColor,
             headerBackTitle: '',
             headerTransparent: true
+        }}
+        initialParams={{
+            fromLogin: true
         }}/>
+
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}}
+        initialParams={{
+            handleLogIn: handleLogIn,
+        }} />
     </Stack.Navigator>
 }

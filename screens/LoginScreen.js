@@ -127,7 +127,7 @@ export default class LoginScreen extends Component {
                 />
             </View>
             <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate('Service', {fromLogin: true})}}>
-                <Text style={styles.buttonText}>Price</Text>
+                <Text style={styles.buttonText}>Посмотреть услуги</Text>
             </TouchableOpacity>
 
             <Text style={styles.h1}>

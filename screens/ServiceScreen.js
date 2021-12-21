@@ -93,7 +93,7 @@ function servicesScreen(services, navigation, pro, setPro, handlePress) {
 }
 
 function serviceListItem(item, navigation, handlePress) {
-    return <TouchableOpacity style={styles.item} onPress={() => { if(handlePress) { navigation.navigate('Staff', {service: item})}}}>
+    return <TouchableOpacity style={styles.item} onPress={() => { (handlePress)? navigation.navigate('Staff', {service: item}): navigation.navigate('Login')}}>
         <View style={styles.row}>
             <View>
                 <Image style={styles.image} source={{uri: item.image}}/>
