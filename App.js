@@ -1,25 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import {
-  AppState,
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  ImageBackground,
-} from "react-native";
+import { AppState, StyleSheet, View, Image, Text, ImageBackground } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  BottomTabBar,
-  createBottomTabNavigator,
-} from "@react-navigation/bottom-tabs";
+import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "react-native-splash-screen";
 
 import HomeScreen from "./screens/HomeScreen";
 import InfoScreen from "./screens/InfoScreen";
-import LoginScreen from "./screens/LoginScreen";
+import InitialScreen from "./screens/InitialScreen";
 import mainStyle from "./styles/main";
 
 const Tab = createBottomTabNavigator();
@@ -57,6 +47,7 @@ export default class App extends Component {
   }
 
   readData = async () => {
+    
     try {
       const userData = JSON.parse(await AsyncStorage.getItem("@userData"));
       let state = this.state;
@@ -66,11 +57,12 @@ export default class App extends Component {
       } else {
         state.state = "notLogedIn";
       }
-      SplashScreen.hide();
       this.setState(state);
     } catch (e) {
       alert("Failed to fetch the data from storage");
     }
+    SplashScreen.hide();
+    
   };
 
   handleLogIn(userData) {
@@ -88,104 +80,119 @@ export default class App extends Component {
   }
 
   render() {
-    if (this.state.state == "loading") {
-      return LoadingScreen();
-    }
+
+    let currentNavigator;
 
     if (this.state.state == "notLogedIn") {
-      return <LoginScreen logIn={this.handleLogIn} />;
+      currentNavigator = InitialScreen(this.handleLogIn);
     }
 
     if (this.state.state == "logedIn") {
-      return (
-        <View style={styles.container}>
-          <ImageBackground
-            source={require("./assets/background.png")}
-            style={mainStyle.styles.background}
-          >
-            <StatusBar style="light" />
-            <NavigationContainer>
-              <Tab.Navigator
-                screenOptions={{
-                  headerShown: false,
-                  tabBarShowLabel: false,
-                  tabBarActiveTintColor: mainStyle.accentColor,
-                  tabBarStyle: {
-                    backgroundColor: "rgba(25,25,27,0)",
-                    borderTopColor: "grey",
-                    height: 90,
-                    position: "absolute",
-                  },
-                }}
-                initialRouteName="Home"
-              >
-                <Tab.Screen
-                  name="Info"
-                  component={InfoScreen}
-                  initialParams={{
-                    userData: this.state.userData,
-                    logOut: this.handleLogOut,
-                  }}
-                  options={{
-                    tabBarIcon: ({ focused }) => {
-                      return (
-                        <View>
-                          <Image
-                            style={styles.tabBarIconImage}
-                            source={
-                              focused
-                                ? require("./assets/ic_price.png")
-                                : require("./assets/ic_price_off.png")
-                            }
-                          />
-                        </View>
-                      );
-                    },
-                  }}
+      currentNavigator = <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: mainStyle.accentColor,
+        tabBarStyle: {
+          backgroundColor: "rgba(25,25,27,0)",
+          borderTopColor: "grey",
+          height: 90,
+          position: 'absolute'
+        }
+      }}
+      initialRouteName="Home"
+    >
+      <Tab.Screen
+        name="Info"
+        component={InfoScreen}
+        initialParams={{
+          userData: this.state.userData,
+          logOut: this.handleLogOut,
+        }}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <Image
+                  style={styles.tabBarIconImage}
+                  source={
+                    focused
+                      ? require("./assets/ic_price.png")
+                      : require("./assets/ic_price_off.png")
+                  }
                 />
-                <Tab.Screen
-                  name="Home"
-                  component={HomeScreen}
-                  options={{
-                    tabBarIcon: ({ focused }) => {
-                      return (
-                        <View>
-                          <Image
-                            style={styles.tabBarIconImage}
-                            source={
-                              focused
-                                ? require("./assets/ic_main.png")
-                                : require("./assets/ic_main_off.png")
-                            }
-                          />
-                        </View>
-                      );
-                    },
-                  }}
-                  initialParams={{
-                    userData: this.state.userData,
-                  }}
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <Image
+                  style={styles.tabBarIconImage}
+                  source={
+                    focused
+                      ? require("./assets/ic_main.png")
+                      : require("./assets/ic_main_off.png")
+                  }
                 />
-              </Tab.Navigator>
-            </NavigationContainer>
-          </ImageBackground>
-        </View>
-      );
+              </View>
+            );
+          },
+        }}
+        initialParams={{
+          userData: this.state.userData,
+        }}
+      />
+      </Tab.Navigator>
     }
+
+    
+    return (
+      <View style={[styles.container, styles.appContainer]}>
+        <ImageBackground source={require('./assets/background.png')} style={mainStyle.styles.background}>
+        <StatusBar style="light" />
+        {(this.state.state == "loading")? 
+          <LoadingScreen></LoadingScreen>:  
+          <NavigationContainer>
+          {currentNavigator}
+        </NavigationContainer>
+        }
+        </ImageBackground>
+      </View>
+    );
   }
 }
 
 function LoadingScreen() {
   return (
-    <View>
-      <Text>Загрузка</Text>
+    <View style={styles.loading}>
+      <Text style={styles.text}>Загрузка</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  loading: {
+    backgroundColor: 'rgb(25,25,27)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
+    color: 'white',
+    fontSize: 38
+  },
   container: {
     flex: 1,
+  },
+  appContainer: {
+    backgroundColor: 'rgb(25,25,27)'
   },
   tabBarIconImage: {
     resizeMode: "contain",
