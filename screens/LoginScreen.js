@@ -67,8 +67,8 @@ export default class LoginScreen extends Component {
             return;
         }
         const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!regexp.test(String(this.state.userData.email).toLowerCase())) {
-            Alert.alert('Black Lion', 'Введите E-mail!');
+        if ((!regexp.test(String(this.state.userData.email).toLowerCase())) && (this.state.userData.email != "")) {
+            Alert.alert('Black Lion', 'Некорректный E-mail!');
             return;
         }
 
@@ -158,7 +158,7 @@ export default class LoginScreen extends Component {
                     this.setState(state);
                 }}
             />
-            <Text style={styles.label}>E-mail</Text>
+            <Text style={styles.label}>E-mail (не обязательно)</Text>
             <TextInput
                 value={this.state.userData.email}
                 style={styles.input}
